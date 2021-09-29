@@ -19,56 +19,44 @@ public class Ramyeon {
         int charge = 0;
         for (int i = 0; i < n; i++) {
             if (i == n - 2) {
-                if (ramCnts[i] > 0) {
-                    ramCnts[i]--;
+                if (ramCnts[i] != 0 && ramCnts[i + 1] != 0) {
+                    int min = Math.min(ramCnts[i], ramCnts[i + 1]);
 
-                    if (ramCnts[i + 1] > 0) {
-                        ramCnts[i + 1]--;
-                        charge += 5;
+                    ramCnts[i] -= min;
+                    ramCnts[i + 1] -= min;
+                    charge += 5 * min;
+                }
 
-                    } else {
-                        charge += 3;
-                    }
+                if (ramCnts[i] != 0) {
+                    charge += 3 * ramCnts[i];
+                    ramCnts[i] = 0;
                 }
             } else if (i == n - 1) {
-                if (ramCnts[i] > 0) {
-                    ramCnts[i]--;
-                    charge += 3;
+                if (ramCnts[i] != 0) {
+                    charge += 3 * ramCnts[i];
+                    ramCnts[i] = 0;
                 }
             } else {
-                if (ramCnts[i] > 0) {
-                    ramCnts[i]--;
+                if (ramCnts[i] != 0 && ramCnts[i + 1] != 0 && ramCnts[i + 2] != 0) {
+                    int min = Math.min(ramCnts[i], Math.min(ramCnts[i + 1], ramCnts[i + 2]));
 
-                    if (ramCnts[i + 1] > 0) {
-                        ramCnts[i + 1]--;
+                    ramCnts[i] -= min;
+                    ramCnts[i + 1] -= min;
+                    ramCnts[i + 2] -= min;
+                    charge += 7 * min;
+                } else if (ramCnts[i] != 0 && ramCnts[i + 1] != 0 && ramCnts[i + 2] == 0) {
+                    int min = Math.min(ramCnts[i], ramCnts[i + 1]);
 
-                        if (ramCnts[i + 2] > 0) {
-                            ramCnts[i + 2]--;
-                            charge += 7;
+                    ramCnts[i] -= min;
+                    ramCnts[i + 1] -= min;
+                    charge += 5 * min;
+                }
 
-                        } else {
-                            charge += 5;
-                        }
-                    } else {
-                        charge += 3;
-                    }
+                if (ramCnts[i] != 0) {
+                    charge += 3 * ramCnts[i];
+                    ramCnts[i] = 0;
                 }
             }
-
-            if (ramCnts[i] > 0) {
-                i--;
-            }
-
-
-//            if(i == n - 2){
-//
-//            } else if(i == n - 1){
-//
-//            } else{
-//                if(ramCnts[i] != 0 && ramCnts[i + 1] != 0 && ramCnts[i + 2] != 0){
-//
-//                }
-//            }
         }
 
         System.out.println(charge);
